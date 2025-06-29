@@ -34,7 +34,6 @@
 //        "keyboard-state",
         "hyprland/language",
         "battery",
-        "battery#bat2",
         "tray",
         "custom/power"
     ],
