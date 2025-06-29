@@ -12,16 +12,54 @@ window{
 	location:center;
 	anchor:center;
 	width:50%;
-	background-color:transparent;	
+	border-radius:25px;
+	background-color:rgba(100, 100, 100, 0.6);	
 }
  inputbar {
       enabled:                     true;
-       padding:                     10px 10px 50px 10px;
+       padding:                     10px 1px 200px 10px;
+	text-color:#000000;
        margin:                      10px;
        background-color:            transparent;
        border-radius:               25px;
        orientation:                 horizontal;
-	background-image: url("/home/alex2/Pictures/walpapers/simple_thread.png");
-       children:                    ["entry", "dummy", "mode-switcher" ];
+	background-image: url("Rofi-search-bg-image/simple_thread.png");
+	children:                    ["entry", "dummy", "mode-switcher" ];
    }
+
+entry{
+	enabled:true;
+	input-width:20%;
+	width:20%;
+	padding:10px;
+	text-color:#ffffff;
+	cursor:text;
+	placeholder:"🖥️ Search";
+	placeholder-color:inherit;
+}
+listbox{
+	orientation:vertical;
+	border-radius:25px;
+	spacing:10px;
+	background-color:transparent;
+}
+element {
+  background-color: #2a1930;
+  text-color: #000000;
+  padding: 5px;
+}
+
+element selected {
+  background-color: #232323;
+  text-color: #333333;
+}
+
+element-text {
+  text-color: #000000;
+}
+
+element-icon {
+  size: 1em;
+  margin: 0px 8px;
+}
 
