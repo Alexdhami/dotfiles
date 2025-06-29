@@ -1,0 +1,27 @@
+configuration{
+	font: "JetBrainsMono Nerd Font SemiBold 12";
+	modi: "drun,run,window";
+	show-icons:true;
+
+}
+window{
+	enabled:true;
+	fullscreen:false;
+	transparency:"real";
+	border:3px 0px 3px 0px;
+	location:center;
+	anchor:center;
+	width:50%;
+	background-color:transparent;	
+}
+ inputbar {
+      enabled:                     true;
+       padding:                     10px 10px 50px 10px;
+       margin:                      10px;
+       background-color:            transparent;
+       border-radius:               25px;
+       orientation:                 horizontal;
+	background-image: url("/home/alex2/Pictures/walpapers/simple_thread.png");
+       children:                    ["entry", "dummy", "mode-switcher" ];
+   }
+
