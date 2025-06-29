@@ -18,6 +18,7 @@ FOLDERS=(
 CONFIG_DIRS=(
   hypr
   waybar
+  rofi
   
 )
 
