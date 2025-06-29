@@ -1,0 +1,11 @@
+{
+  "python.pythonPath": "/home/alex2/Documents/Python/myenv/bin/python3",
+  "python.autoComplete.addBrackets": true,
+  "python.autoComplete.preloadModules": [
+    "numpy", "pandas", "requests", "pygame", "os"
+  ],
+  "suggest.autoTrigger": "always", 
+  "suggest.triggerAfterInsertEnter": true,
+  "suggest.enablePreselect": true
+}
+

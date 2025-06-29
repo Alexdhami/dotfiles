@@ -1,0 +1,58 @@
+#!/bin/bash
+
+# Automatically detect the dotfiles directory
+DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
+BACKUP_DIR="$HOME/dotfiles_backup"
+
+# Files and folders to symlink from $HOME
+FILES=(
+  .vimrc
+  .zshrc
+)
+
+FOLDERS=(
+  .vim
+)
+
+# .config subfolders to link individually
+CONFIG_DIRS=(
+  hypr
+  waybar
+  
+)
+
+echo "📦 Creating backup directory at $BACKUP_DIR"
+mkdir -p "$BACKUP_DIR"
+
+# Symlink home-level dotfiles
+echo "🔗 Symlinking home files..."
+for file in "${FILES[@]}"; do
+  if [ -e "$HOME/$file" ]; then
+    echo "Backing up $file"
+    mv "$HOME/$file" "$BACKUP_DIR/"
+  fi
+  ln -sfn "$DOTFILES_DIR/$file" "$HOME/$file"
+done
+
+# Symlink home-level folders (like .vim)
+echo "🔗 Symlinking folders..."
+for folder in "${FOLDERS[@]}"; do
+  if [ -e "$HOME/$folder" ]; then
+    echo "Backing up $folder"
+    mv "$HOME/$folder" "$BACKUP_DIR/"
+  fi
+  ln -sfn "$DOTFILES_DIR/$folder" "$HOME/$folder"
+done
+
+# Symlink .config subdirectories like hypr
+echo "🔗 Symlinking .config directories..."
+for dir in "${CONFIG_DIRS[@]}"; do
+  if [ -e "$HOME/.config/$dir" ]; then
+    echo "Backing up .config/$dir"
+    mv "$HOME/.config/$dir" "$BACKUP_DIR/"
+  fi
+  ln -sfn "$DOTFILES_DIR/.config/$dir" "$HOME/.config/$dir"
+done
+
+echo "✅ Done! Your dotfiles have been set up."
+
