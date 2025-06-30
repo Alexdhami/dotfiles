@@ -29,12 +29,12 @@
   //      "mpd",
 //        "pulseaudio",
         "network",
+        "tray",
         "power-profiles-daemon",
         "backlight",
 //        "keyboard-state",
-        "hyprland/language",
+//        "hyprland/language",
         "battery",
-        "tray",
         "custom/power"
     ],
         "hyprland/workspaces": {
@@ -110,10 +110,10 @@
     "tray": {
         // "icon-size": 21,
         "spacing": 10,
-        // "icons": {
-        //   "blueman": "bluetooth",
+          "icons": {
+           "blueman": "bluetooth"
         //   "TelegramDesktop": "$HOME/.local/share/icons/hicolor/16x16/apps/telegram.png"
-        // }
+        }
     },
     "clock": {
         // "timezone": "America/New_York",
@@ -167,7 +167,7 @@
       }
     },
     "network": {
-        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        "interface": "wlp2*", // (Optional) To force the use of this interface
         "format-wifi": "{essid} ({signalStrength}%) ",
         "format-ethernet": "{ipaddr}/{cidr} ",
         "tooltip-format": "{ifname} via {gwaddr} ",
@@ -209,14 +209,8 @@
     },
     "custom/power": {
         "format" : "⏻ ",
-		"tooltip": true,
-		"menu": "on-click",
-		"menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu file in resources folder
-		"menu-actions": {
-			"shutdown": "shutdown",
-			"reboot": "reboot",
-			"suspend": "systemctl suspend",
-			"hibernate": "systemctl hibernate"
-		}
-    }
+	"tooltip":true,		
+	"on-click":"wlogout"
+   }
+    
 }
