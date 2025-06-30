@@ -1,4 +1,4 @@
-// -*- mode: jsonc -*-
+// -*- mode: jjsonc -*-
 {
     // "layer": "top", // Waybar at top layer
     // "position": "bottom", // Waybar position (top|bottom|left|right)
@@ -28,7 +28,7 @@
     "modules-right": [
   //      "mpd",
 //        "pulseaudio",
-        "network",
+        "network#speed",
         "tray",
         "power-profiles-daemon",
         "backlight",
@@ -174,7 +174,24 @@
         "format-linked": "{ifname} (No IP) ",
         "format-disconnected": "Disconnected ⚠",
         "format-alt": "{ifname}: {ipaddr}/{cidr}",
-	"tooltip":true
+	"tooltip":false
+    },
+    "network#speed":{
+    	 "interval": 1,
+          "format": "{ifname}",
+          "format-wifi": "{icon}  {bandwidthUpBytes}  {bandwidthDownBytes}",
+          "format-ethernet": "󰌘  {bandwidthUpBytes}  {bandwidthDownBytes}",
+          "format-disconnected": "󰌙",
+          "tooltip-format": "{ipaddr}",
+           "format-linked": "󰈁 {ifname} (No IP)",
+           "tooltip-format-wifi": "{essid} {icon} {signalStrength}%",
+           "tooltip-format-ethernet": "{ifname} 󰌘",
+           "tooltip-format-disconnected": "󰌙 Disconnected",
+           "min-length": 24,
+           "max-length": 24,
+           "format-icons": [
+                   "󰤯", "󰤟", "󰤢", "󰤥", "󰤨"
+	   ]
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float

@@ -56,5 +56,8 @@ for dir in "${CONFIG_DIRS[@]}"; do
   ln -sfn "$DOTFILES_DIR/.config/$dir" "$HOME/.config/$dir"
 done
 
+echo "creating Screenshot folder to save the keybinding screenshot shortcut image"
+mkdir -p ~/Pictures/Screenshots
+echo "Screenshot directory created "
 echo "✅ Done! Your dotfiles have been set up."
 

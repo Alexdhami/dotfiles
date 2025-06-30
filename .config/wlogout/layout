@@ -1,9 +1,9 @@
 {
-    "label" : "lock",
-    "action" : "loginctl lock-session",
-    "text" : "Lock",
-    "keybind" : "l"
-}
+       "label" : "lock",
+       "action" : "loginctl lock-session",
+       "text" : "Lock",
+       "keybind" : "l"
+   }
 {
     "label" : "hibernate",
     "action" : "systemctl hibernate",

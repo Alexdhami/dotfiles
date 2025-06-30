@@ -100,7 +100,7 @@ button:hover {
 
 #window,
 #workspaces {
-    margin: 0 4px;
+    margin: 4 4px;
 }
 
 /* If workspaces is the leftmost module, omit left margin */
@@ -114,17 +114,17 @@ button:hover {
 }
 
 #clock {
-    background-color: #64727D;
+   
 }
 
 #battery {
-    background-color: #ffffff;
-    color: #000000;
+    color: #ffffff;
+    background-color:black;
 }
 
 #battery.charging, #battery.plugged {
     color: #ffffff;
-    background-color: #26A65B;
+    background-color: transparent;
 }
 
 @keyframes blink {
@@ -182,8 +182,9 @@ label:focus {
 }
 
 #backlight {
-    background-color: #90b1b1;
+    background-color: #fd2eda;
 }
+
 
 #network {
     background-color: #2980b9;
@@ -235,7 +236,7 @@ label:focus {
 }
 
 #tray {
-    background-color: #2980b9;
+	background-color:grey;
 }
 
 #tray > .passive {
@@ -253,6 +254,7 @@ label:focus {
 
 #idle_inhibitor.activated {
     background-color: #ecf0f1;
+    border-radius:2;
     color: #2d3436;
 }
 
