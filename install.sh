@@ -17,6 +17,7 @@ FOLDERS=(
 # .config subfolders to link individually
 CONFIG_DIRS=(
   hypr
+  wlogout
   waybar
   rofi
   
