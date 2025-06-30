@@ -19,6 +19,8 @@ CONFIG_DIRS=(
   hypr
   wlogout
   waybar
+  gtk-3.0
+  gtk-4.0
   rofi
   
 )
