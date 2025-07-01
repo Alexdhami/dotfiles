@@ -21,6 +21,7 @@ Plug 'jiangmiao/auto-pairs'
 "Plug 'davidhalter/jedi-vim'
 
 " 2. Auto-completion with CoC (Language Server Protocol support)
+
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Note: Run :CocInstall coc-pyright for Python support
 
@@ -28,7 +29,7 @@ call plug#end()
 
 " --------------------------- Plugin Configs ---------------------------
 " Enable auto-completion in coc.nvim
-autocmd FileType python setlocal completeopt=menuone,noinsert,noselect
+"autocmd FileType python setlocal completeopt=menuone,noinsert,noselect
 let g:coc_global_extensions = ['coc-pyright']
 
 " Enable auto-trigger of completion as you type
@@ -44,6 +45,8 @@ let g:AutoPairs = {'(':')', '[':']', '{':'}', "'":"'", '"':'"'}
 let g:AutoPairsMapQuote = 1
 let g:AutoPairsMapBS = 1
 let g:AutoPairsMapCh = 1
+" ⛔ Disable virtual text (inline messages)
+let g:coc_enable_virtual_text = 0
 
 
 " Use Python 3 from the current virtual environment (myenv)
