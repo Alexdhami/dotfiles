@@ -76,7 +76,21 @@ echo "gtklock installed succesfully"
 echo "Changing default shell to zsh..."
 chsh -s "$(which zsh)"
 
-echo "✅ Done! Your dotfiles have been set up."
 echo "📦 Installing Vim plugins..."
 vim +PlugInstall +qall
+echo "✅ plugin installed successfully"
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+echo "✅ Done! Your dotfiles have been set up."
