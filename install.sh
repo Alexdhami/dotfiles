@@ -12,6 +12,7 @@ FILES=(
 
 FOLDERS=(
   .vim
+  .oh-my-zsh
 )
 
 # .config subfolders to link individually
