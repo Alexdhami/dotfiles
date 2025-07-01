@@ -1,4 +1,9 @@
 #!/bin/bash
+echo "Installing Oh My Zsh..."
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+git clone https://github.com/zsh-users/zsh-autosuggestions \
+  ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
 # Automatically detect the dotfiles directory
 DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -68,12 +73,6 @@ echo "gammastep installed succesfully if you are on Arch otherwise try installin
 echo "Installing gtklock for lockscreen"
 yay -S gtklock
 echo "gtklock installed succesfully"
-
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-git clone https://github.com/zsh-users/zsh-autosuggestions \
-  ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-source .zshrc
-
 
 echo "✅ Done! Your dotfiles have been set up."
 
