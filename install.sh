@@ -3,6 +3,8 @@ echo "Installing Oh My Zsh..."
 RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone https://github.com/folke/lazy.nvim.git ~/.config/nvim/lazy/lazy.nvim
 echo "Symlinking the nvim config files"
+rm ~/.config/nvim/coc-settings.json
+rm ~/.config/nvim/init.lua
 ln ~/dotfiles/nvim/coc-settings.json ~/.config/nvim/coc-settings.json
 
 ln ~/dotfiles/nvim/init.lua ~/.config/nvim/init.lua
