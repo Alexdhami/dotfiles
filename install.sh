@@ -3,11 +3,20 @@ echo "Installing Oh My Zsh..."
 RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone https://github.com/folke/lazy.nvim.git ~/.config/nvim/lazy/lazy.nvim
 echo "Symlinking the nvim config files"
-rm ~/.config/nvim/coc-settings.json
-rm ~/.config/nvim/init.lua
-ln ~/dotfiles/nvim/coc-settings.json ~/.config/nvim/coc-settings.json
 
-ln ~/dotfiles/nvim/init.lua ~/.config/nvim/init.lua
+# Ensure nvim config directory exists
+echo "ensure nvim .config directory exists"
+mkdir -p "$HOME/.config/nvim"
+
+# Remove any old config
+echo "Removing $HOME/.config/nvim/init.lua and $HOME/.config/nvim/coc-settings.json"
+rm -f "$HOME/.config/nvim/init.lua"
+rm -f "$HOME/.config/nvim/coc-settings.json"
+echo "Symlinking"
+# Create symlinks
+ln -sf "$HOME/dotfiles/nvim/init.lua" "$HOME/.config/nvim/init.lua"
+ln -sf "$HOME/dotfiles/nvim/coc-settings.json" "$HOME/.config/nvim/coc-settings.json"
+echo "Symlinking Completed"
 nvim +Lazy\ sync
 
 git clone https://github.com/zsh-users/zsh-autosuggestions \
