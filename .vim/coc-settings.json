@@ -1,11 +1,24 @@
 {
-  "python.pythonPath": "/home/alex2/Documents/Python/myenv/bin/python3",
-  "python.autoComplete.addBrackets": true,
-  "python.autoComplete.preloadModules": [
-    "numpy", "pandas", "requests", "pygame", "os"
-  ],
-  "suggest.autoTrigger": "always", 
-  "suggest.triggerAfterInsertEnter": true,
-  "suggest.enablePreselect": true
-}
-
+     "python.pythonPath": "/home/alex2/Documents/Python/myenv/bin/python3",
+    "python.inlayHints.enable": false,
+  
+     	  "pyright.inlayHints.functionReturnTypes": false,
+     "pyright.inlayHints.variableTypes": false,
+     "pyright.inlayHints.parameterTypes": false,
+  "inlayHint.refreshOnInsertMode": ,
+     "pyright.inlayHints.enable": false,
+      "python.autoComplete.addBrackets": true,
+     "python.autoComplete.preloadModules": ["numpy", "pandas", "requests", "pygame", "os"],
+     "suggest.autoTrigger": "always",
+      "suggest.triggerAfterInsertEnter": true,
+     "suggest.enablePreselect": true,
+     "coc.preferences.enableGhostText": false,
+     "inlayHint.enable": false,
+   
+     "pyright.inlayHints.parameterNames.enabled": "none",
+     "pyright.inlayHints.parameterTypes.enabled": false,
+     "pyright.inlayHints.variableTypes.enabled": false,
+     "pyright.inlayHints.propertyDeclarationTypes.enabled": false,
+     "pyright.inlayHints.functionReturnTypes.enabled": false,
+     "pyright.inlayHints.enumMemberValues.enabled": false
+   }
