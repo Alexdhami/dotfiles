@@ -61,5 +61,10 @@ done
 echo "creating Screenshot folder to save the keybinding screenshot shortcut image"
 mkdir -p ~/Pictures/Screenshots
 echo "Screenshot directory created "
+echo "Installing gammastep for night light"
+yay -S gammastep
+echo "gammastep installed succesfully if you are on Arch otherwise try installing it with your package manager"
+
+
 echo "✅ Done! Your dotfiles have been set up."
 
