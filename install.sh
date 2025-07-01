@@ -3,6 +3,8 @@ echo "Installing Oh My Zsh..."
 RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone https://github.com/folke/lazy.nvim.git ~/.config/nvim/lazy/lazy.nvim
 
+nvim +Lazy\ sync
+
 git clone https://github.com/zsh-users/zsh-autosuggestions \
   ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
@@ -12,12 +14,10 @@ BACKUP_DIR="$HOME/dotfiles_backup"
 
 # Files and folders to symlink from $HOME
 FILES=(
-  .vimrc
   .zshrc
 )
 
 FOLDERS=(
-  .vim
 )
 
 # .config subfolders to link individually
