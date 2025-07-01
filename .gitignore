@@ -1,3 +1,26 @@
+# Vim plugin downloads & history
+.vim/plugged/
 .vim/.netrwhist
-.vim/plugged
-.vim/autoload
+*.swp
+*.swo
+*.swn
+
+# Node modules or Coc extensions (if any)
+node_modules/
+.vim/coc-*
+
+# Python bytecode
+__pycache__/
+*.pyc
+
+# Logs, caches
+*.log
+
+# Backup files
+*~
+*.bak
+
+# System-specific files
+.DS_Store
+Thumbs.db
+
