@@ -21,6 +21,7 @@ FOLDERS=(
 
 # .config subfolders to link individually
 CONFIG_DIRS=(
+  kitty
   hypr
   wlogout
   waybar
