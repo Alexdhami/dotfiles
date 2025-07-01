@@ -12,7 +12,6 @@ FILES=(
 
 FOLDERS=(
   .vim
-  .oh-my-zsh
 )
 
 # .config subfolders to link individually
@@ -70,7 +69,10 @@ echo "Installing gtklock for lockscreen"
 yay -S gtklock
 echo "gtklock installed succesfully"
 
-
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+git clone https://github.com/zsh-users/zsh-autosuggestions \
+  ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+source .zshrc
 
 
 echo "✅ Done! Your dotfiles have been set up."
