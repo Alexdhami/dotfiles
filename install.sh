@@ -1,6 +1,7 @@
 #!/bin/bash
 echo "Installing Oh My Zsh..."
 RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+git clone https://github.com/folke/lazy.nvim.git ~/.config/nvim/lazy/lazy.nvim
 
 git clone https://github.com/zsh-users/zsh-autosuggestions \
   ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
@@ -21,6 +22,7 @@ FOLDERS=(
 
 # .config subfolders to link individually
 CONFIG_DIRS=(
+  nvim
   kitty
   hypr
   wlogout
