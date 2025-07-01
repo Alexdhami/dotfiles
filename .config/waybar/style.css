@@ -121,7 +121,6 @@ button:hover {
  background-color:red;  
 }
 #clock:hover{
-	
 }
 #battery {
     color: #ffffff;
@@ -154,7 +153,6 @@ button:hover {
 #power-profiles-daemon {
     padding-right: 15px;
 }
-
 #power-profiles-daemon.performance {
     background-color: #f53c3c;
     color: #ffffff;

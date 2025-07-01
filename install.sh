@@ -65,6 +65,12 @@ echo "Installing gammastep for night light"
 yay -S gammastep
 echo "gammastep installed succesfully if you are on Arch otherwise try installing it with your package manager"
 
+echo "Installing gtklock for lockscreen"
+yay -S gtklock
+echo "gtklock installed succesfully"
+
+
+
 
 echo "✅ Done! Your dotfiles have been set up."
 
