@@ -5,6 +5,13 @@ vim.g.maplocalleader = " "
 
 -- ===================== PLUGIN MANAGER (lazy.nvim) =====================
 local lazypath = vim.fn.stdpath("config") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git", "clone", "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    lazypath
+  })
+end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
@@ -20,29 +27,32 @@ require("lazy").setup({
   "williamboman/mason-lspconfig.nvim",
 
   -- Autocompletion
+  "hrsh7th/nvim-cmp",
   "hrsh7th/cmp-nvim-lsp",
- "hrsh7th/nvim-cmp",
-{
-  "neoclide/coc.nvim",
-  branch = "release"
-},
+  {
+    "neoclide/coc.nvim", -- optional: remove if only using nvim-cmp
+    branch = "release"
+  },
   "L3MON4D3/LuaSnip",
   "saadparwaiz1/cmp_luasnip",
 
-  -- Treesitter (Syntax highlighting)
+  -- Treesitter
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
 
   -- Statusline
   { "nvim-lualine/lualine.nvim", dependencies = { "nvim-tree/nvim-web-devicons" } },
 
-  -- Git indicators
+  -- Git
   "lewis6991/gitsigns.nvim",
 
-  -- Harpoon (ThePrimeagen's quick nav)
+  -- Harpoon
   "ThePrimeagen/harpoon",
 
   -- Theme
   "folke/tokyonight.nvim",
+
+  -- Autopairs
+  "windwp/nvim-autopairs",
 })
 
 -- ===================== BASIC SETTINGS =====================
@@ -80,9 +90,9 @@ require("mason-lspconfig").setup()
 
 -- LSP
 local lspconfig = require("lspconfig")
-lspconfig.lua_ls.setup {}  -- Example LSP (Lua language server)
+lspconfig.lua_ls.setup {}
 
--- cmp setup
+-- nvim-cmp setup
 local cmp = require("cmp")
 local luasnip = require("luasnip")
 cmp.setup {
@@ -94,13 +104,24 @@ cmp.setup {
   mapping = cmp.mapping.preset.insert({
     ["<Tab>"] = cmp.mapping.select_next_item(),
     ["<S-Tab>"] = cmp.mapping.select_prev_item(),
-    ["<CR>"] = cmp.mapping.confirm({ select = true }),
+    ["<CR>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.confirm({ select = true })
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
   }),
   sources = {
     { name = "nvim_lsp" },
     { name = "luasnip" },
   },
 }
+
+-- autopairs setup with cmp integration
+require("nvim-autopairs").setup {}
+local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
 -- gitsigns
 require("gitsigns").setup()
@@ -112,7 +133,7 @@ require("harpoon").setup()
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
--- Insert mode: jj or kk to exit insert mode
+-- Insert mode: jj or kk to exit
 map("i", "jj", "<Esc>", opts)
 map("i", "kk", "<Esc>", opts)
 
@@ -122,22 +143,31 @@ map("i", "<C-BS>", "<C-W>", opts)
 -- Ctrl+F to open search & replace in command mode
 map("i", "<C-F>", "<Esc>:%s///g<Left><Left><Left>", opts)
 
--- Enter key: confirm popup if visible (for CoC-style behavior)
--- If using nvim-cmp (you are), it’s already handled in cmp.mapping above
-
--- Ctrl+Enter to save and run Python file (Normal mode)
+-- Ctrl+Enter to save and run Python file
 map("n", "<C-CR>", ":w<CR>:!python3 %<CR>", opts)
 
--- Tab / Shift-Tab in insert mode: completion menu navigation
--- Already set in cmp.mapping above, but if you'd like to reinforce manually:
+-- Completion menu navigation fallback
 map("i", "<Tab>", [[pumvisible() ? "\<C-n>" : "\<Tab>"]], { expr = true, silent = true })
 map("i", "<S-Tab>", [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]], { expr = true, silent = true })
 
--- Ctrl+n to toggle file explorer
+-- Toggle file explorer
 map("n", "<C-n>", ":NvimTreeToggle<CR>", opts)
 
--- Easier window navigation with Alt+h/j/k/l
+-- Alt-based window navigation
 map("n", "<A-h>", "<C-w>h", opts)
 map("n", "<A-l>", "<C-w>l", opts)
 map("n", "<A-j>", "<C-w>j", opts)
 map("n", "<A-k>", "<C-w>k", opts)
+
+-- Auto-install specific LSPs using mason-lspconfig when in headless mode
+if vim.fn.has("nvim") == 1 and #vim.api.nvim_list_uis() == 0 then
+  vim.defer_fn(function()
+    local mlsp = require("mason-lspconfig")
+    mlsp.setup_handlers({
+      function(server_name)
+        require("lspconfig")[server_name].setup {}
+      end
+    })
+    vim.cmd("MasonInstall lua-language-server pyright tsserver")
+  end, 100)
+end
