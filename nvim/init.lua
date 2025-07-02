@@ -171,3 +171,27 @@ if vim.fn.has("nvim") == 1 and #vim.api.nvim_list_uis() == 0 then
     vim.cmd("MasonInstall lua-language-server pyright tsserver")
   end, 100)
 end
+
+
+
+local lspconfig = require("lspconfig")
+
+local on_attach = function(client, bufnr)
+  -- your attach code if any, or leave empty
+end
+
+local root_dir = function(fname)
+  -- Always use current working directory as root
+  return vim.loop.cwd()
+end
+
+lspconfig.pyright.setup {
+  on_attach = on_attach,
+  root_dir = root_dir,
+}
+
+lspconfig.lua_ls.setup {
+  on_attach = on_attach,
+  root_dir = root_dir,
+}
+
