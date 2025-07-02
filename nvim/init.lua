@@ -88,13 +88,32 @@ require("nvim-treesitter.configs").setup {
 require("mason").setup()
 require("mason-lspconfig").setup()
 
--- LSP
+-- ===================== LSP SETUP =====================
 local lspconfig = require("lspconfig")
-lspconfig.lua_ls.setup {}
 
--- nvim-cmp setup
+local on_attach = function(client, bufnr)
+  -- your attach code here (optional)
+end
+
+local root_dir = function(fname)
+  -- Always use current working directory as root, so LSP attaches even outside projects
+  return vim.loop.cwd()
+end
+
+lspconfig.pyright.setup {
+  on_attach = on_attach,
+  root_dir = root_dir,
+}
+
+lspconfig.lua_ls.setup {
+  on_attach = on_attach,
+  root_dir = root_dir,
+}
+
+-- ===================== CMP SETUP =====================
 local cmp = require("cmp")
 local luasnip = require("luasnip")
+
 cmp.setup {
   snippet = {
     expand = function(args)
@@ -104,13 +123,17 @@ cmp.setup {
   mapping = cmp.mapping.preset.insert({
     ["<Tab>"] = cmp.mapping.select_next_item(),
     ["<S-Tab>"] = cmp.mapping.select_prev_item(),
-    ["<CR>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.confirm({ select = true })
-      else
-        fallback()
-      end
-    end, { "i", "s" }),
+    -- Confirm with Enter, select first item if none selected
+    
+["<CR>"] = cmp.mapping(function(fallback)
+  if cmp.visible() then
+    cmp.confirm({ select = true })
+    -- Insert a space after confirming
+    vim.api.nvim_feedkeys(" ", "n", false)
+  else
+    fallback()
+  end
+end, { "i", "s" }),
   }),
   sources = {
     { name = "nvim_lsp" },
@@ -123,6 +146,7 @@ require("nvim-autopairs").setup {}
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
+-- ===================== OTHER PLUGINS =====================
 -- gitsigns
 require("gitsigns").setup()
 
@@ -133,7 +157,7 @@ require("harpoon").setup()
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
--- Insert mode: jj or kk to exit
+-- Insert mode: jj or kk to exit insert mode
 map("i", "jj", "<Esc>", opts)
 map("i", "kk", "<Esc>", opts)
 
@@ -143,7 +167,7 @@ map("i", "<C-BS>", "<C-W>", opts)
 -- Ctrl+F to open search & replace in command mode
 map("i", "<C-F>", "<Esc>:%s///g<Left><Left><Left>", opts)
 
--- Ctrl+Enter to save and run Python file
+-- Ctrl+Enter to save and run Python file (normal mode)
 map("n", "<C-CR>", ":w<CR>:!python3 %<CR>", opts)
 
 -- Completion menu navigation fallback
@@ -159,7 +183,7 @@ map("n", "<A-l>", "<C-w>l", opts)
 map("n", "<A-j>", "<C-w>j", opts)
 map("n", "<A-k>", "<C-w>k", opts)
 
--- Auto-install specific LSPs using mason-lspconfig when in headless mode
+-- ===================== AUTO INSTALL LSPs IN HEADLESS MODE =====================
 if vim.fn.has("nvim") == 1 and #vim.api.nvim_list_uis() == 0 then
   vim.defer_fn(function()
     local mlsp = require("mason-lspconfig")
@@ -171,27 +195,3 @@ if vim.fn.has("nvim") == 1 and #vim.api.nvim_list_uis() == 0 then
     vim.cmd("MasonInstall lua-language-server pyright tsserver")
   end, 100)
 end
-
-
-
-local lspconfig = require("lspconfig")
-
-local on_attach = function(client, bufnr)
-  -- your attach code if any, or leave empty
-end
-
-local root_dir = function(fname)
-  -- Always use current working directory as root
-  return vim.loop.cwd()
-end
-
-lspconfig.pyright.setup {
-  on_attach = on_attach,
-  root_dir = root_dir,
-}
-
-lspconfig.lua_ls.setup {
-  on_attach = on_attach,
-  root_dir = root_dir,
-}
-
