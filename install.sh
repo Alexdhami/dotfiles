@@ -97,9 +97,7 @@ vim +PlugInstall +qall
 echo "✅ plugin installed successfully"
 
 echo "📦 Installing language servers via Mason..."
-nvim --headless +"MasonInstall lua-language-server pyright tsserver" +qa
-
-
+nvim --headless +"Lazy! sync" +qa
 
 
 
