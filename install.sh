@@ -65,12 +65,9 @@ done
 echo "creating Screenshot folder to save the keybinding screenshot shortcut image"
 mkdir -p ~/Pictures/Screenshots
 echo "Screenshot directory created "
-echo "Installing gammastep for night light"
-yay -S gammastep
-echo "gammastep installed succesfully if you are on Arch otherwise try installing it with your package manager"
 
-echo "Installing kitty, waybar, gtklock,gammastep"
-yay -S gtklock gammastep kitty waybar
+echo "Installing network-manager-applet, kitty, waybar, gtklock,gammastep"
+sudo pacman -S gtklock gammastep kitty waybar network-manager-applet
 
 echo "Changing Shell to Zsh"
 chsh -s "$(which zsh)"
