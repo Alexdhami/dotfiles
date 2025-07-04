@@ -39,9 +39,7 @@ for file in "${FILES[@]}"; do
     echo "Backing up $file"
     mv "$HOME/$file" "$BACKUP_DIR/"
   fi
-  ln -sfn "$DOTFILES_DIR/$file" "$HOME/$file"
-done
-
+  ln -sfn "$DOTFILES_DIR/$file" "$HOME/$file" done
 # Symlink home-level folders (like .vim)
 echo "🔗 Symlinking folders..."
 for folder in "${FOLDERS[@]}"; do
@@ -67,7 +65,7 @@ mkdir -p ~/Pictures/Screenshots
 echo "Screenshot directory created "
 
 echo "Installing network-manager-applet, kitty, waybar, gtklock,gammastep"
-sudo pacman -S gtklock gammastep kitty waybar network-manager-applet
+sudo pacman -S gtklock gammastep kitty waybar network-manager-applet wl-clipboard
 
 echo "Changing Shell to Zsh"
 chsh -s "$(which zsh)"
