@@ -31,6 +31,7 @@
         "network#speed",
         "tray",
         "power-profiles-daemon",
+        "custom/volume",
         "backlight",
 //        "keyboard-state",
 //        "hyprland/language",
@@ -228,6 +229,18 @@
         "format" : "⏻ ",
 	"tooltip":true,		
 	"on-click":"wlogout"
-   }
+   },
     
+
+
+"custom/volume": {
+    "exec": "~/.config/waybar/CustomScripts/volume",
+    "interval": 0,
+    "format": "{}",
+    "return-type": "json",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+",
+    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
+    "max-length": 16
+}
 }
