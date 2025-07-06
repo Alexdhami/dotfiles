@@ -1,0 +1,12 @@
+
+#!/bin/bash
+
+VOLUME=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{printf "%.0f", $2 * 100}')
+MUTED=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -o '\[MUTED\]')
+
+ICON="" # default icon
+if [[ $MUTED ]]; then
+    ICON=""
+fi
+
+echo "{\"text\": \"${ICON} ${VOLUME%.*}%\", \"tooltip\": false}"
