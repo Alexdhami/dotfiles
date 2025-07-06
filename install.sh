@@ -70,5 +70,7 @@ sudo pacman -S gtklock gammastep kitty waybar network-manager-applet wl-clipboar
 echo "Changing Shell to Zsh"
 chsh -s "$(which zsh)"
 
+echo "adding permission to custom volume script"
+chmod +x ~/.config/waybar/CustomScripts/volume
 
 echo "✅ Done! Your dotfiles have been set up."
