@@ -124,9 +124,12 @@ button:hover {
 }
 #battery {
     color: #ffffff;
-    background-color:black;
+    background-color:#439c82;
 }
-
+#custom-volume{
+  background-color:#69439c;
+  color:#ffffff;
+}
 #battery.charging, #battery.plugged {
     color: #ffffff;
     background-color: transparent;
