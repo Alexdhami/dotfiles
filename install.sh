@@ -65,7 +65,7 @@ mkdir -p ~/Pictures/Screenshots
 echo "Screenshot directory created "
 
 echo "Installing network-manager-applet, kitty, waybar, gtklock,gammastep"
-sudo pacman -S gtklock tealdeer gammastep kitty waybar network-manager-applet wl-clipboard
+sudo pacman -S gtklock zoxide tealdeer gammastep kitty waybar network-manager-applet wl-clipboard
 tldr --update
 sudo pacman -S gsettings-desktop-schemas dconf
 
