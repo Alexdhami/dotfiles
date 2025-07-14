@@ -108,3 +108,5 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias vim=nvim 
 alias python="cd ~/Documents/Python/"
+
+eval "$(zoxide init zsh)"

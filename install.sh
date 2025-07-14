@@ -65,7 +65,9 @@ mkdir -p ~/Pictures/Screenshots
 echo "Screenshot directory created "
 
 echo "Installing network-manager-applet, kitty, waybar, gtklock,gammastep"
-sudo pacman -S gtklock gammastep kitty waybar network-manager-applet wl-clipboard
+sudo pacman -S gtklock tealdeer gammastep kitty waybar network-manager-applet wl-clipboard
+tldr --update
+sudo pacman -S gsettings-desktop-schemas dconf
 
 echo "Changing Shell to Zsh"
 chsh -s "$(which zsh)"
@@ -73,4 +75,7 @@ chsh -s "$(which zsh)"
 echo "adding permission to custom volume script"
 chmod +x ~/.config/waybar/CustomScripts/volume
 
+sudo pacman -S gsettings-desktop-schemas dconf
+sudo pacman -S gsettings-desktop-schemas dconf
+sudo pacman -S gsettings-desktop-schemas dconf
 echo "✅ Done! Your dotfiles have been set up."
