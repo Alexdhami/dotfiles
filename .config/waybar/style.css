@@ -245,9 +245,14 @@ label:focus {
 #custom-power{
   padding: 4px 20px;
 }
-#network.disconnected {
-    background-color: rgba(100, 0, 0, 0.41);
+#network{
+  background-color:rgba(28,3,255,0.2);
 }
+
+#network.disconnected {
+    background-color: rgba(255,3, 28, 0.2);
+}
+
 
 #paulseaudio{
 

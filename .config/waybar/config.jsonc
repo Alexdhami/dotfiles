@@ -28,8 +28,7 @@
     ],
 
     "modules-right": [
-  //      "mpd",
-//        "pulseaudio",
+        
         "network#speed",
         "tray",
         "power-profiles-daemon",
