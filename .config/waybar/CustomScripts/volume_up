@@ -1,0 +1,16 @@
+
+#!/bin/bash
+# Get the current volume (in percentage)
+VOLUME=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $2*100}')
+
+# Add 5% to the volume but make sure it doesn't exceed 150%
+NEW_VOLUME=$((VOLUME + 5))
+if (( NEW_VOLUME > 150 )); then
+    NEW_VOLUME=150
+fi
+
+# Set the new volume
+wpctl set-volume @DEFAULT_AUDIO_SINK@ ${NEW_VOLUME}%
+
+# Update Waybar with the new volume level
+~/.config/waybar/CustomScripts/volume
