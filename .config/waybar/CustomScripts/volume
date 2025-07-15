@@ -1,12 +1,21 @@
 
 #!/bin/bash
 
+# Get the current volume (in percentage)
 VOLUME=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $2*100}')
 MUTED=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -o '\[MUTED\]')
 
-ICON="" # default icon
+# Limit volume to 150%
+if (( $(echo "$VOLUME > 150" | bc -l) )); then
+    VOLUME=150
+fi
+
+# Default icon
+ICON=""
 if [[ $MUTED ]]; then
     ICON=""
 fi
 
+# Output the JSON for Waybar
 echo "{\"text\": \"${ICON} ${VOLUME%.*}%\", \"tooltip\": false}"
+
