@@ -1,0 +1,11 @@
+
+[Unit]
+Description=Lock screen on idle using swayidle
+After=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/swayidle -w -C %h/.config/swayidle/config
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

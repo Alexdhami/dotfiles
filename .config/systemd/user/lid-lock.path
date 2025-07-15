@@ -1,0 +1,10 @@
+
+[Unit]
+Description=Watch lid close event
+
+[Path]
+PathChanged=/proc/acpi/button/lid/LID0/state
+
+[Install]
+WantedBy=default.target
+

@@ -1,0 +1,8 @@
+
+[Unit]
+Description=Lock screen when lid is closed
+
+[Service]
+Type=oneshot
+ExecStart=bash -c 'grep -q closed /proc/acpi/button/lid/LID0/state && swaylock'
+
