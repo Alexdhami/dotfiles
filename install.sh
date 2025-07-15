@@ -21,6 +21,8 @@ FOLDERS=()
 # .config subfolders to link individually
 CONFIG_DIRS=(
     kitty
+    systemd
+    swayidle
     hypr
     wlogout
     waybar
@@ -59,12 +61,19 @@ for dir in "${CONFIG_DIRS[@]}"; do
     ln -sfn "$DOTFILES_DIR/.config/$dir" "$HOME/.config/$dir"
 done
 
+echo "🔁 Reloading systemd user services..."
+
+systemctl --user daemon-reexec
+systemctl --user daemon-reload
+systemctl --user enable --now idle-lock.service
+systemctl --user enable --now lid-lock.path
+
 echo "📸 Creating screenshot folder..."
 mkdir -p "$HOME/Pictures/Screenshots"
 
 echo "📦 Installing packages..."
 sudo pacman -S --noconfirm \
-    gtklock \
+    swaylock \
     zoxide \
     tealdeer \
     gammastep \
