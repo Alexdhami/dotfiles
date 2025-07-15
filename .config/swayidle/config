@@ -1,4 +1,4 @@
 
-timeout 15 swaylock
-timeout 20 swaymsg "output * dpms off"
+timeout 600 swaylock
+timeout 615 swaymsg "output * dpms off"
 before-sleep swaylock
