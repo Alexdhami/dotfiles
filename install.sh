@@ -83,15 +83,12 @@ sudo pacman -S --noconfirm \
     waybar \
     network-manager-applet \
     wl-clipboard \
-    tealdeer \
     gsettings-desktop-schemas \
-    dconf \ 
-sudo pacman -S qt5ct 
-sudo pacman -S qt6ct 
-sudo pacman -S gnome-themes-extra
-sudo pacman -S swayidle 
+    dconf \
+    qt5ct \
+    qt6ct \
+    gnome-themes-extra || true# Update tldr cache
 
-# Update tldr cache
 tldr --update
 
 echo "💻 Changing shell to Zsh..."
