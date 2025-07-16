@@ -15,7 +15,7 @@ DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
 BACKUP_DIR="$HOME/dotfiles_backup"
 
 # Files and folders to symlink from $HOME
-FILES=(.zshrc)
+FILES=(.zshrc .profile)
 FOLDERS=()
 
 # .config subfolders to link individually
@@ -74,6 +74,8 @@ mkdir -p "$HOME/Pictures/Screenshots"
 echo "📦 Installing packages..."
 sudo pacman -S --noconfirm \
     swaylock \
+    swayidle \
+    lxappearance \
     zoxide \
     tealdeer \
     gammastep \
@@ -81,9 +83,13 @@ sudo pacman -S --noconfirm \
     waybar \
     network-manager-applet \
     wl-clipboard \
-    tldr \
+    tealdeer \
     gsettings-desktop-schemas \
-    dconf
+    dconf \ 
+    qt5ct \ 
+    qt6ct \
+    gnome-themes-extra \
+    swayidle 
 
 # Update tldr cache
 tldr --update
