@@ -86,10 +86,10 @@ sudo pacman -S --noconfirm \
     tealdeer \
     gsettings-desktop-schemas \
     dconf \ 
-    qt5ct \ 
-    qt6ct \
-    gnome-themes-extra \
-    swayidle 
+sudo pacman -S qt5ct 
+sudo pacman -S qt6ct 
+sudo pacman -S gnome-themes-extra
+sudo pacman -S swayidle 
 
 # Update tldr cache
 tldr --update
