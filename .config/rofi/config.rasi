@@ -1,65 +1,128 @@
-configuration{
-	font: "JetBrainsMono Nerd Font SemiBold 12";
-	modi: "drun,run,window";
-	show-icons:true;
+configuration {
+  font: "jetbrainsmono nerd font semibold 11";
+  modi: "drun,run,window";
+  show-icons: true;
+}
 
+window {
+  location: center;
+  anchor: center;
+  width: 50%;
+  border-radius: 25px;
+  background-color: rgba(18, 15, 17, 0.5);
+  cursor: "default";
+  border: 0px;
+  padding: 10px;
 }
-window{
-	enabled:true;
-	fullscreen:false;
-	transparency:"real";
-	border:3px 0px 3px 0px;
-	location:center;
-	anchor:center;
-	width:50%;
-	border-radius:25px;
-	background-color:rgba(100, 100, 100, 0.6);	
-}
- inputbar {
-      enabled:                     true;
-       padding:                     10px 1px 200px 10px;
-	text-color:#000000;
-       margin:                      10px;
-       background-color:            transparent;
-       border-radius:               25px;
-       orientation:                 horizontal;
-	background-image: url("Rofi-search-bg-image/simple_thread.png");
-	children:                    ["entry", "dummy", "mode-switcher" ];
-   }
 
-entry{
-	enabled:true;
-	input-width:20%;
-	width:20%;
-	padding:10px;
-	text-color:#ffffff;
-	cursor:text;
-	placeholder:"🖥️ Search";
-	placeholder-color:inherit;
-}
-listbox{
-	orientation:vertical;
-	border-radius:25px;
-	spacing:10px;
-	background-color:transparent;
-}
-element {
-  background-color: #2a1930;
+inputbar {
+  enabled: true;
+  padding: 10px;
+  margin: 5px;
+  background-color: rgba(123,32,34,0.4); /* Background for the entire inputbar */
+  border-radius: 15px;
   text-color: #000000;
+  children: [ "entry", "dummy", "mode-switcher" ];
+}
+
+entry {
+  placeholder: "🔍 search";
+  placeholder-color: #000000;
+  text-color: #000000;
+  background-color: transparent;
   padding: 5px;
 }
 
-element selected {
-  background-color: #232323;
-  text-color: #333333;
+listview {
+  columns: 4;
+  lines: 5;
+  layout: vertical;
+  spacing: 20px;
+  fixed-height: true;
+  border-radius:15px;
+  
+  background-image: url("Rofi-search-bg-image/simple_thread.png");
+  border: 0px;
+  padding: 10px;
+}
+
+element {
+  orientation: vertical;
+  spacing: 5px;
+  padding: 5px;
+  border-radius: 15px;
+  width: 100px;
+  min-width: 100px;
+  max-width: 100px;
+  height: 100px;
+  min-height: 100px;
+  max-height: 100px;
+  
+  background-color: rgba(233,232,222,0.1); /* Default element background - this might be overridden by element.normal */
+  children: [ "element-icon", "element-text" ];
+  horizontal-align: 0.5;
+  vertical-align: 0.5;
+}
+
+/* Unselected icons background color */
+element.normal {
+  background-color: rgba(233, 34, 24, 0.5); /* This is your unselected icon background. Change this RGB value for different color */
+  text-color: #ffffff;
+  border-radius: 15px;
+}
+
+/* Selected icons background and border radius */
+element.selected.normal {
+    background-color: rgba(233,232,222,0.1); /* This seems to be a semi-transparent white/gray */
+    border-radius:40px; /* Large border radius for selected icons */
+    background-image: url("Rofi-search-bg-image/simple_thread.png"); /* You have an image here too */
+    text-color:#ffffff;
+}
+
+/* Note: element active and element.active.normal might be redundant if element.selected.normal handles the visual.
+   'active' typically refers to the currently focused but not necessarily 'selected' in listview context.
+   For icon selection, 'element.selected' is usually what you want.
+*/
+element active {
+  text-color: #ffffff;
+}
+element.active.normal{
+background-color:red;
+}
+element-icon {
+  size: 58px;
+  horizontal-align: 0.5;
 }
 
 element-text {
-  text-color: #000000;
+  text-color: inherit;
+  horizontal-align: 0.5;
+  vertical-align: 0.0;
+  expand: false;
 }
 
-element-icon {
-  size: 1em;
-  margin: 0px 8px;
+/* --- Mode-Switcher (drun, run, window) Customizations --- */
+
+mode-switcher {
+    spacing: 10px; /* Space between the "drun", "run", "window" buttons */
+    /* background-color: transparent; */ /* Optional: if you want a background for the entire switcher area */
+    border-radius: 15px; /* Optional: border radius for the entire switcher area */
+    padding: 5px; /* Optional: padding within the switcher area */
 }
 
+/* Style for unselected mode-switcher buttons (drun, run, window) */
+button {
+    padding: 8px 15px; /* Adjust padding to make buttons look good */
+    border-radius: 10px; /* Border radius for unselected buttons */
+    background-color: rgba(50, 50, 50, 0.7); /* Example: Dark, semi-transparent for unselected */
+    text-color: #ffffff; /* Example: White text for unselected */
+    border: 0px; /* No border */
+}
+
+/* Style for the selected mode-switcher button */
+button.selected {
+    background-color: rgba(200, 200, 200, 0.9); /* Example: Lighter, semi-transparent for selected */
+    text-color: #000000; /* Example: Black text for selected */
+    border-radius: 10px; /* Border radius for selected buttons (can be different from unselected) */
+    border: 0px; /* No border */
+}
