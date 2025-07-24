@@ -21,7 +21,6 @@ FOLDERS=()
 # .config subfolders to link individually
 CONFIG_DIRS=(
     kitty
-    systemd
     swayidle
     hypr
     wlogout
@@ -33,6 +32,24 @@ CONFIG_DIRS=(
 
 echo "📁 Creating backup directory at $BACKUP_DIR"
 mkdir -p "$BACKUP_DIR"
+
+
+
+echo "🔗 Symlinking systemd services..."
+
+# Symlink the auto-lock services (those we tracked in Git)
+if [ -e "$DOTFILES_DIR/systemd/idle-lock.service" ]; then
+    ln -sfn "$DOTFILES_DIR/systemd/idle-lock.service" "$HOME/.config/systemd/user"
+fi
+if [ -e "$DOTFILES_DIR/systemd/lid-lock.service" ]; then
+    ln -sfn "$DOTFILES_DIR/systemd/lid-lock.service" "$HOME/.config/systemd/user"
+fi
+if [ -e "$DOTFILES_DIR/systemd/lid-lock.path" ]; then
+    ln -sfn "$DOTFILES_DIR/systemd/lid-lock.path" "$HOME/.config/systemd/user"
+fi
+
+systemctl --user enable --now idle-lock.service
+systemctl --user enable --now lid-lock.path
 
 echo "🔗 Symlinking home files..."
 for file in "${FILES[@]}"; do
@@ -72,6 +89,7 @@ echo "📸 Creating screenshot folder..."
 mkdir -p "$HOME/Pictures/Screenshots"
 
 echo "📦 Installing packages..."
+
 sudo pacman -S --noconfirm \
     swaylock \
     swayidle \
@@ -87,15 +105,24 @@ sudo pacman -S --noconfirm \
     dconf \
     qt5ct \
     qt6ct \
+    pipewire \
+    pipewire-paulse \
+    wireplumber \
+    rtkit \ 
+    bc \ 
     gnome-themes-extra || true# Update tldr cache
 
 tldr --update
 
 echo "💻 Changing shell to Zsh..."
 chsh -s "$(which zsh)"
+systemctl --user enable --now pipewire pipewire-paulse wireplumber
+sudo systemctl enable --now rtkit-daemon.service
 
 echo "🔊 Setting executable permission to volume script..."
 chmod +x "$HOME/.config/waybar/CustomScripts/volume"
 chmod +x "$HOME/.config/waybar/CustomScripts/volume_up"
+
+
 echo "✅ Setup complete."
 
