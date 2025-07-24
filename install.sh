@@ -108,6 +108,9 @@ sudo pacman -S --noconfirm \
     pipewire \
     pipewire-paulse \
     wireplumber \
+    grim \
+    slurp \
+    libcanberra \
     rtkit \ 
     bc \ 
     gnome-themes-extra || true# Update tldr cache
