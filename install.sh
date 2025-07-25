@@ -20,6 +20,7 @@ FOLDERS=()
 
 # .config subfolders to link individually
 CONFIG_DIRS=(
+    fontconfig
     kitty
     swayidle
     hypr
@@ -111,12 +112,14 @@ sudo pacman -S --noconfirm \
     grim \
     slurp \
     libcanberra \
+    noto-fonts-emoji \
     rtkit \ 
     bc \ 
     gnome-themes-extra || true# Update tldr cache
 
 tldr --update
 
+fc-cache -fv
 echo "💻 Changing shell to Zsh..."
 chsh -s "$(which zsh)"
 systemctl --user enable --now pipewire pipewire-paulse wireplumber
