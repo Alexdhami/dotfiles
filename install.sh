@@ -1,24 +1,21 @@
 
 #!/bin/bash
 
-set -e  # Exit immediately if a command exits with a non-zero status
-set -u  # Treat unset variables as an error
+set -e
+set -u
 
 echo "📦 Installing Oh My Zsh..."
 RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-# Install Zsh Autosuggestions plugin
+echo "🔌 Cloning Zsh Autosuggestions..."
 git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
 
-# Automatically detect the dotfiles directory (where this script is)
 DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
 BACKUP_DIR="$HOME/dotfiles_backup"
 
-# Files and folders to symlink from $HOME
 FILES=(.zshrc .profile)
 FOLDERS=()
 
-# .config subfolders to link individually
 CONFIG_DIRS=(
     fontconfig
     kitty
@@ -33,24 +30,21 @@ CONFIG_DIRS=(
 
 echo "📁 Creating backup directory at $BACKUP_DIR"
 mkdir -p "$BACKUP_DIR"
+mkdir -p "$HOME/.config/systemd/user"
 
+echo "🔗 Ensuring and symlinking systemd services..."
+for service in idle-lock.service lid-lock.service lid-lock.path; do
+    SOURCE="$DOTFILES_DIR/systemd/$service"
+    TARGET="$HOME/.config/systemd/user/$service"
 
+    if [ ! -f "$SOURCE" ]; then
+        echo "🆕 Creating empty systemd service: $SOURCE"
+        mkdir -p "$(dirname "$SOURCE")"
+        touch "$SOURCE"
+    fi
 
-echo "🔗 Symlinking systemd services..."
-
-# Symlink the auto-lock services (those we tracked in Git)
-if [ -e "$DOTFILES_DIR/systemd/idle-lock.service" ]; then
-    ln -sfn "$DOTFILES_DIR/systemd/idle-lock.service" "$HOME/.config/systemd/user"
-fi
-if [ -e "$DOTFILES_DIR/systemd/lid-lock.service" ]; then
-    ln -sfn "$DOTFILES_DIR/systemd/lid-lock.service" "$HOME/.config/systemd/user"
-fi
-if [ -e "$DOTFILES_DIR/systemd/lid-lock.path" ]; then
-    ln -sfn "$DOTFILES_DIR/systemd/lid-lock.path" "$HOME/.config/systemd/user"
-fi
-
-systemctl --user enable --now idle-lock.service
-systemctl --user enable --now lid-lock.path
+    ln -sfn "$SOURCE" "$TARGET"
+done
 
 echo "🔗 Symlinking home files..."
 for file in "${FILES[@]}"; do
@@ -58,6 +52,12 @@ for file in "${FILES[@]}"; do
         echo "📦 Backing up $file"
         mv "$HOME/$file" "$BACKUP_DIR/"
     fi
+
+    if [ ! -f "$DOTFILES_DIR/$file" ]; then
+        echo "🆕 Creating empty file: $DOTFILES_DIR/$file"
+        touch "$DOTFILES_DIR/$file"
+    fi
+
     ln -sfn "$DOTFILES_DIR/$file" "$HOME/$file"
 done
 
@@ -67,6 +67,12 @@ for folder in "${FOLDERS[@]}"; do
         echo "📦 Backing up $folder"
         mv "$HOME/$folder" "$BACKUP_DIR/"
     fi
+
+    if [ ! -d "$DOTFILES_DIR/$folder" ]; then
+        echo "🆕 Creating empty folder: $DOTFILES_DIR/$folder"
+        mkdir -p "$DOTFILES_DIR/$folder"
+    fi
+
     ln -sfn "$DOTFILES_DIR/$folder" "$HOME/$folder"
 done
 
@@ -76,11 +82,16 @@ for dir in "${CONFIG_DIRS[@]}"; do
         echo "📦 Backing up .config/$dir"
         mv "$HOME/.config/$dir" "$BACKUP_DIR/"
     fi
+
+    if [ ! -d "$DOTFILES_DIR/.config/$dir" ]; then
+        echo "🆕 Creating empty config dir: $DOTFILES_DIR/.config/$dir"
+        mkdir -p "$DOTFILES_DIR/.config/$dir"
+    fi
+
     ln -sfn "$DOTFILES_DIR/.config/$dir" "$HOME/.config/$dir"
 done
 
 echo "🔁 Reloading systemd user services..."
-
 systemctl --user daemon-reexec
 systemctl --user daemon-reload
 systemctl --user enable --now idle-lock.service
@@ -113,22 +124,21 @@ sudo pacman -S --noconfirm \
     slurp \
     libcanberra \
     noto-fonts-emoji \
-    rtkit \ 
-    bc \ 
-    gnome-themes-extra || true# Update tldr cache
+    rtkit \
+    bc \
+    gnome-themes-extra || true
 
 tldr --update
-
 fc-cache -fv
+
 echo "💻 Changing shell to Zsh..."
 chsh -s "$(which zsh)"
 systemctl --user enable --now pipewire pipewire-paulse wireplumber
 sudo systemctl enable --now rtkit-daemon.service
 
-echo "🔊 Setting executable permission to volume script..."
-chmod +x "$HOME/.config/waybar/CustomScripts/volume"
-chmod +x "$HOME/.config/waybar/CustomScripts/volume_up"
-
+echo "🔊 Setting executable permission to volume scripts..."
+chmod +x "$HOME/.config/waybar/CustomScripts/volume" || true
+chmod +x "$HOME/.config/waybar/CustomScripts/volume_up" || true
 
 echo "✅ Setup complete."
 
