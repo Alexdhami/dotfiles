@@ -100,41 +100,8 @@ systemctl --user enable --now lid-lock.path
 echo "📸 Creating screenshot folder..."
 mkdir -p "$HOME/Pictures/Screenshots"
 
-echo "📦 Installing packages..."
-
-sudo pacman -S --noconfirm \
-    swaylock \
-    swayidle \
-    lxappearance \
-    zoxide \
-    tealdeer \
-    gammastep \
-    kitty \
-    waybar \
-    network-manager-applet \
-    wl-clipboard \
-    gsettings-desktop-schemas \
-    dconf \
-    qt5ct \
-    qt6ct \
-    pipewire \
-    pipewire-paulse \
-    wireplumber \
-    grim \
-    slurp \
-    libcanberra \
-    noto-fonts-emoji \
-    rtkit \
-    bc \
-    gnome-themes-extra || true
-
-tldr --update
-fc-cache -fv
-
 echo "💻 Changing shell to Zsh..."
 chsh -s "$(which zsh)"
-systemctl --user enable --now pipewire pipewire-paulse wireplumber
-sudo systemctl enable --now rtkit-daemon.service
 
 echo "🔊 Setting executable permission to volume scripts..."
 chmod +x "$HOME/.config/waybar/CustomScripts/volume" || true
