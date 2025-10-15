@@ -126,3 +126,7 @@ button.selected {
     border-radius: 10px; /* Border radius for selected buttons (can be different from unselected) */
     border: 0px; /* No border */
 }
+
+//@theme "/usr/share/rofi/themes/Arc-Dark.rasi"
+
+@theme "/usr/share/rofi/themes/arthur.rasi"
